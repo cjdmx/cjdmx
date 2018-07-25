@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ujiuye.hospital.dao.DeparmentMapper">
+  <resultMap id="BaseResultMap" type="com.ujiuye.hospital.bean.Deparment">
+    <id column="dept_id" jdbcType="INTEGER" property="dept_id" />
+    <result column="dept_name" jdbcType="VARCHAR" property="dept_name" />
+    <result column="room_no" jdbcType="VARCHAR" property="room_no" />
+    <result column="create_date" jdbcType="DATE" property="create_date" />
+    <result column="update_date" jdbcType="DATE" property="update_date" />
+    <result column="update_man" jdbcType="VARCHAR" property="update_man" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    dept_id, dept_name, room_no, create_date, update_date, update_man
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from deparment
+    where dept_id = #{dept_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from deparment
+    where dept_id = #{dept_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ujiuye.hospital.bean.Deparment">
+    insert into deparment (dept_id, dept_name, room_no, 
+      create_date, update_date, update_man
+      )
+    values (#{dept_id,jdbcType=INTEGER}, #{dept_name,jdbcType=VARCHAR}, #{room_no,jdbcType=VARCHAR}, 
+      #{create_date,jdbcType=DATE}, #{update_date,jdbcType=DATE}, #{update_man,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ujiuye.hospital.bean.Deparment">
+    insert into deparment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dept_id != null">
+        dept_id,
+      </if>
+      <if test="dept_name != null">
+        dept_name,
+      </if>
+      <if test="room_no != null">
+        room_no,
+      </if>
+      <if test="create_date != null">
+        create_date,
+      </if>
+      <if test="update_date != null">
+        update_date,
+      </if>
+      <if test="update_man != null">
+        update_man,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dept_id != null">
+        #{dept_id,jdbcType=INTEGER},
+      </if>
+      <if test="dept_name != null">
+        #{dept_name,jdbcType=VARCHAR},
+      </if>
+      <if test="room_no != null">
+        #{room_no,jdbcType=VARCHAR},
+      </if>
+      <if test="create_date != null">
+        #{create_date,jdbcType=DATE},
+      </if>
+      <if test="update_date != null">
+        #{update_date,jdbcType=DATE},
+      </if>
+      <if test="update_man != null">
+        #{update_man,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ujiuye.hospital.bean.Deparment">
+    update deparment
+    <set>
+      <if test="dept_name != null">
+        dept_name = #{dept_name,jdbcType=VARCHAR},
+      </if>
+      <if test="room_no != null">
+        room_no = #{room_no,jdbcType=VARCHAR},
+      </if>
+      <if test="create_date != null">
+        create_date = #{create_date,jdbcType=DATE},
+      </if>
+      <if test="update_date != null">
+        update_date = #{update_date,jdbcType=DATE},
+      </if>
+      <if test="update_man != null">
+        update_man = #{update_man,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where dept_id = #{dept_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ujiuye.hospital.bean.Deparment">
+    update deparment
+    set dept_name = #{dept_name,jdbcType=VARCHAR},
+      room_no = #{room_no,jdbcType=VARCHAR},
+      create_date = #{create_date,jdbcType=DATE},
+      update_date = #{update_date,jdbcType=DATE},
+      update_man = #{update_man,jdbcType=VARCHAR}
+    where dept_id = #{dept_id,jdbcType=INTEGER}
+  </update>
+
+  <select id="getAllDepartment" resultType="Deparment">
+    select * from deparment;
+  </select>
+
+  <select id="getByDoctorId" resultType="Deparment">
+    select dp.* from deparment dp,doctor dt where dp.dept_id=dt.dept_id and dt.doctor_id=#{doctor_id};
+  </select>
+
+</mapper>

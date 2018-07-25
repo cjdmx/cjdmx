@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ujiuye.hospital.dao.PositiontitleMapper">
+  <resultMap id="BaseResultMap" type="com.ujiuye.hospital.bean.Positiontitle">
+    <id column="position_id" jdbcType="INTEGER" property="position_id" />
+    <result column="position_name" jdbcType="VARCHAR" property="position_name" />
+    <result column="position_standard" jdbcType="VARCHAR" property="position_standard" />
+    <result column="created_date" jdbcType="DATE" property="created_date" />
+    <result column="updated_date" jdbcType="DATE" property="updated_date" />
+    <result column="update_man" jdbcType="VARCHAR" property="update_man" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    position_id, position_name, position_standard, created_date, updated_date, update_man
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from positiontitle
+    where position_id = #{position_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from positiontitle
+    where position_id = #{position_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ujiuye.hospital.bean.Positiontitle">
+    insert into positiontitle (position_id, position_name, position_standard, 
+      created_date, updated_date, update_man
+      )
+    values (#{position_id,jdbcType=INTEGER}, #{position_name,jdbcType=VARCHAR}, #{position_standard,jdbcType=VARCHAR}, 
+      #{created_date,jdbcType=DATE}, #{updated_date,jdbcType=DATE}, #{update_man,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ujiuye.hospital.bean.Positiontitle">
+    insert into positiontitle
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="position_id != null">
+        position_id,
+      </if>
+      <if test="position_name != null">
+        position_name,
+      </if>
+      <if test="position_standard != null">
+        position_standard,
+      </if>
+      <if test="created_date != null">
+        created_date,
+      </if>
+      <if test="updated_date != null">
+        updated_date,
+      </if>
+      <if test="update_man != null">
+        update_man,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="position_id != null">
+        #{position_id,jdbcType=INTEGER},
+      </if>
+      <if test="position_name != null">
+        #{position_name,jdbcType=VARCHAR},
+      </if>
+      <if test="position_standard != null">
+        #{position_standard,jdbcType=VARCHAR},
+      </if>
+      <if test="created_date != null">
+        #{created_date,jdbcType=DATE},
+      </if>
+      <if test="updated_date != null">
+        #{updated_date,jdbcType=DATE},
+      </if>
+      <if test="update_man != null">
+        #{update_man,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ujiuye.hospital.bean.Positiontitle">
+    update positiontitle
+    <set>
+      <if test="position_name != null">
+        position_name = #{position_name,jdbcType=VARCHAR},
+      </if>
+      <if test="position_standard != null">
+        position_standard = #{position_standard,jdbcType=VARCHAR},
+      </if>
+      <if test="created_date != null">
+        created_date = #{created_date,jdbcType=DATE},
+      </if>
+      <if test="updated_date != null">
+        updated_date = #{updated_date,jdbcType=DATE},
+      </if>
+      <if test="update_man != null">
+        update_man = #{update_man,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where position_id = #{position_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ujiuye.hospital.bean.Positiontitle">
+    update positiontitle
+    set position_name = #{position_name,jdbcType=VARCHAR},
+      position_standard = #{position_standard,jdbcType=VARCHAR},
+      created_date = #{created_date,jdbcType=DATE},
+      updated_date = #{updated_date,jdbcType=DATE},
+      update_man = #{update_man,jdbcType=VARCHAR}
+    where position_id = #{position_id,jdbcType=INTEGER}
+  </update>
+
+  <select id="getAllPosition" resultType="Positiontitle">
+    select * from positiontitle
+  </select>
+
+  <select id="getByName" resultType="Positiontitle">
+    select * from positiontitle where position_name=#{position_name}
+  </select>
+</mapper>

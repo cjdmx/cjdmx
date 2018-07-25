@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ujiuye.hospital.dao.MenuMapper">
+  <resultMap id="BaseResultMap" type="com.ujiuye.hospital.bean.Menu">
+    <id column="menu_id" jdbcType="INTEGER" property="menu_id" />
+    <result column="menu_name" jdbcType="VARCHAR" property="menu_name" />
+    <result column="menu_uri" jdbcType="VARCHAR" property="menu_uri" />
+    <result column="created_date" jdbcType="DATE" property="created_date" />
+    <result column="updated_date" jdbcType="DATE" property="updated_date" />
+    <result column="updated_man" jdbcType="VARCHAR" property="updated_man" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    menu_id, menu_name, menu_uri, created_date, updated_date, updated_man
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from menu
+    where menu_id = #{menu_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from menu
+    where menu_id = #{menu_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ujiuye.hospital.bean.Menu">
+    insert into menu (menu_id, menu_name, menu_uri, 
+      created_date, updated_date, updated_man
+      )
+    values (#{menu_id,jdbcType=INTEGER}, #{menu_name,jdbcType=VARCHAR}, #{menu_uri,jdbcType=VARCHAR}, 
+      #{created_date,jdbcType=DATE}, #{updated_date,jdbcType=DATE}, #{updated_man,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ujiuye.hospital.bean.Menu">
+    insert into menu
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="menu_id != null">
+        menu_id,
+      </if>
+      <if test="menu_name != null">
+        menu_name,
+      </if>
+      <if test="menu_uri != null">
+        menu_uri,
+      </if>
+      <if test="created_date != null">
+        created_date,
+      </if>
+      <if test="updated_date != null">
+        updated_date,
+      </if>
+      <if test="updated_man != null">
+        updated_man,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="menu_id != null">
+        #{menu_id,jdbcType=INTEGER},
+      </if>
+      <if test="menu_name != null">
+        #{menu_name,jdbcType=VARCHAR},
+      </if>
+      <if test="menu_uri != null">
+        #{menu_uri,jdbcType=VARCHAR},
+      </if>
+      <if test="created_date != null">
+        #{created_date,jdbcType=DATE},
+      </if>
+      <if test="updated_date != null">
+        #{updated_date,jdbcType=DATE},
+      </if>
+      <if test="updated_man != null">
+        #{updated_man,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ujiuye.hospital.bean.Menu">
+    update menu
+    <set>
+      <if test="menu_name != null">
+        menu_name = #{menu_name,jdbcType=VARCHAR},
+      </if>
+      <if test="menu_uri != null">
+        menu_uri = #{menu_uri,jdbcType=VARCHAR},
+      </if>
+      <if test="created_date != null">
+        created_date = #{created_date,jdbcType=DATE},
+      </if>
+      <if test="updated_date != null">
+        updated_date = #{updated_date,jdbcType=DATE},
+      </if>
+      <if test="updated_man != null">
+        updated_man = #{updated_man,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where menu_id = #{menu_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ujiuye.hospital.bean.Menu">
+    update menu
+    set menu_name = #{menu_name,jdbcType=VARCHAR},
+      menu_uri = #{menu_uri,jdbcType=VARCHAR},
+      created_date = #{created_date,jdbcType=DATE},
+      updated_date = #{updated_date,jdbcType=DATE},
+      updated_man = #{updated_man,jdbcType=VARCHAR}
+    where menu_id = #{menu_id,jdbcType=INTEGER}
+  </update>
+
+
+</mapper>

@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ujiuye.hospital.dao.WorktimeMapper">
+  <resultMap id="BaseResultMap" type="com.ujiuye.hospital.bean.Worktime">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="doctor_id" jdbcType="INTEGER" property="doctor_id" />
+    <result column="monday" jdbcType="VARCHAR" property="monday" />
+    <result column="tuesday" jdbcType="VARCHAR" property="tuesday" />
+    <result column="wednesday" jdbcType="VARCHAR" property="wednesday" />
+    <result column="thursday" jdbcType="VARCHAR" property="thursday" />
+    <result column="friday" jdbcType="VARCHAR" property="friday" />
+    <result column="saturday" jdbcType="VARCHAR" property="saturday" />
+    <result column="sunday" jdbcType="VARCHAR" property="sunday" />
+    <result column="start_date" jdbcType="DATE" property="start_date" />
+    <result column="end_date" jdbcType="DATE" property="end_date" />
+    <result column="created_date" jdbcType="DATE" property="created_date" />
+    <result column="updated_date" jdbcType="DATE" property="updated_date" />
+    <result column="updated_man" jdbcType="VARCHAR" property="updated_man" />
+  </resultMap>
+  <resultMap id="myWrokTime" type="WorkTimeVo" extends="BaseResultMap">
+    <association property="doctor" javaType="Doctor" column="doctor_id" select="com.ujiuye.hospital.dao.DoctorMapper.selectByPrimaryKey"/>
+    <association property="deparment" javaType="Deparment" column="doctor_id" select="com.ujiuye.hospital.dao.DeparmentMapper.getByDoctorId"/>
+    <association property="max" javaType="Bespeakmaxamount" column="doctor_id" select="com.ujiuye.hospital.dao.BespeakmaxamountMapper.selectByDoctorId"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, doctor_id, monday, tuesday, wednesday, thursday, friday, saturday, sunday, start_date, 
+    end_date, created_date, updated_date, updated_man
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="myWrokTime">
+    select 
+    <include refid="Base_Column_List" />
+    from worktime
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from worktime
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ujiuye.hospital.bean.Worktime">
+    insert into worktime (id, doctor_id, monday, 
+      tuesday, wednesday, thursday, 
+      friday, saturday, sunday, 
+      start_date, end_date, created_date, 
+      updated_date, updated_man)
+    values (#{id,jdbcType=INTEGER}, #{doctor_id,jdbcType=INTEGER}, #{monday,jdbcType=VARCHAR}, 
+      #{tuesday,jdbcType=VARCHAR}, #{wednesday,jdbcType=VARCHAR}, #{thursday,jdbcType=VARCHAR}, 
+      #{friday,jdbcType=VARCHAR}, #{saturday,jdbcType=VARCHAR}, #{sunday,jdbcType=VARCHAR}, 
+      #{start_date,jdbcType=DATE}, #{end_date,jdbcType=DATE}, #{created_date,jdbcType=DATE}, 
+      #{updated_date,jdbcType=DATE}, #{updated_man,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ujiuye.hospital.bean.Worktime">
+    insert into worktime
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="doctor_id != null">
+        doctor_id,
+      </if>
+      <if test="monday != null">
+        monday,
+      </if>
+      <if test="tuesday != null">
+        tuesday,
+      </if>
+      <if test="wednesday != null">
+        wednesday,
+      </if>
+      <if test="thursday != null">
+        thursday,
+      </if>
+      <if test="friday != null">
+        friday,
+      </if>
+      <if test="saturday != null">
+        saturday,
+      </if>
+      <if test="sunday != null">
+        sunday,
+      </if>
+      <if test="start_date != null">
+        start_date,
+      </if>
+      <if test="end_date != null">
+        end_date,
+      </if>
+      <if test="created_date != null">
+        created_date,
+      </if>
+      <if test="updated_date != null">
+        updated_date,
+      </if>
+      <if test="updated_man != null">
+        updated_man,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="doctor_id != null">
+        #{doctor_id,jdbcType=INTEGER},
+      </if>
+      <if test="monday != null">
+        #{monday,jdbcType=VARCHAR},
+      </if>
+      <if test="tuesday != null">
+        #{tuesday,jdbcType=VARCHAR},
+      </if>
+      <if test="wednesday != null">
+        #{wednesday,jdbcType=VARCHAR},
+      </if>
+      <if test="thursday != null">
+        #{thursday,jdbcType=VARCHAR},
+      </if>
+      <if test="friday != null">
+        #{friday,jdbcType=VARCHAR},
+      </if>
+      <if test="saturday != null">
+        #{saturday,jdbcType=VARCHAR},
+      </if>
+      <if test="sunday != null">
+        #{sunday,jdbcType=VARCHAR},
+      </if>
+      <if test="start_date != null">
+        #{start_date,jdbcType=DATE},
+      </if>
+      <if test="end_date != null">
+        #{end_date,jdbcType=DATE},
+      </if>
+      <if test="created_date != null">
+        #{created_date,jdbcType=DATE},
+      </if>
+      <if test="updated_date != null">
+        #{updated_date,jdbcType=DATE},
+      </if>
+      <if test="updated_man != null">
+        #{updated_man,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ujiuye.hospital.bean.Worktime">
+    update worktime
+    <set>
+      <if test="doctor_id != null">
+        doctor_id = #{doctor_id,jdbcType=INTEGER},
+      </if>
+      <if test="monday != null">
+        monday = #{monday,jdbcType=VARCHAR},
+      </if>
+      <if test="tuesday != null">
+        tuesday = #{tuesday,jdbcType=VARCHAR},
+      </if>
+      <if test="wednesday != null">
+        wednesday = #{wednesday,jdbcType=VARCHAR},
+      </if>
+      <if test="thursday != null">
+        thursday = #{thursday,jdbcType=VARCHAR},
+      </if>
+      <if test="friday != null">
+        friday = #{friday,jdbcType=VARCHAR},
+      </if>
+      <if test="saturday != null">
+        saturday = #{saturday,jdbcType=VARCHAR},
+      </if>
+      <if test="sunday != null">
+        sunday = #{sunday,jdbcType=VARCHAR},
+      </if>
+      <if test="start_date != null">
+        start_date = #{start_date,jdbcType=DATE},
+      </if>
+      <if test="end_date != null">
+        end_date = #{end_date,jdbcType=DATE},
+      </if>
+      <if test="created_date != null">
+        created_date = #{created_date,jdbcType=DATE},
+      </if>
+      <if test="updated_date != null">
+        updated_date = #{updated_date,jdbcType=DATE},
+      </if>
+      <if test="updated_man != null">
+        updated_man = #{updated_man,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ujiuye.hospital.bean.Worktime">
+    update worktime
+    set doctor_id = #{doctor_id,jdbcType=INTEGER},
+      monday = #{monday,jdbcType=VARCHAR},
+      tuesday = #{tuesday,jdbcType=VARCHAR},
+      wednesday = #{wednesday,jdbcType=VARCHAR},
+      thursday = #{thursday,jdbcType=VARCHAR},
+      friday = #{friday,jdbcType=VARCHAR},
+      saturday = #{saturday,jdbcType=VARCHAR},
+      sunday = #{sunday,jdbcType=VARCHAR},
+      start_date = #{start_date,jdbcType=DATE},
+      end_date = #{end_date,jdbcType=DATE},
+      created_date = #{created_date,jdbcType=DATE},
+      updated_date = #{updated_date,jdbcType=DATE},
+      updated_man = #{updated_man,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateBatchByDoctorId" parameterType="java.util.List">
+    update worktime set
+      monday = #{worktime.monday,jdbcType=VARCHAR},
+      tuesday = #{worktime.tuesday,jdbcType=VARCHAR},
+      wednesday = #{worktime.wednesday,jdbcType=VARCHAR},
+      thursday = #{worktime.thursday,jdbcType=VARCHAR},
+      friday = #{worktime.friday,jdbcType=VARCHAR},
+      saturday = #{worktime.saturday,jdbcType=VARCHAR},
+      sunday = #{worktime.sunday,jdbcType=VARCHAR},
+      start_date = #{worktime.start_date,jdbcType=DATE},
+      end_date = #{worktime.end_date,jdbcType=DATE}
+    where doctor_id in
+    <foreach collection="list" index="index" item="item" separator="," open="(" close=")">
+      ${item}
+    </foreach>
+  </update>
+
+  <select id="searchWorkTime" parameterType="WorkTimeQuery" resultMap="myWrokTime">
+    select w.* from worktime w,doctor d,deparment dp
+    <where>
+      w.doctor_id=d.doctor_id and d.dept_id = dp.dept_id
+      <if test="start_date!=null and end_date!=null">
+        and w.start_date>=#{start_date}
+        and #{end_date}>=w.end_date
+      </if>
+      <if test="dept_id!=null">
+        and dp.dept_id=#{dept_id}
+      </if>
+      <if test="doctor_id!=null">
+        and d.doctor_id=w.doctor_id and d.doctor_id=#{doctor_id}
+      </if>
+    </where>
+  </select>
+
+  <select id="getByDoctorId" resultType="Worktime">
+    select * from worktime where doctor_id=#{doctor_id}
+  </select>
+</mapper>

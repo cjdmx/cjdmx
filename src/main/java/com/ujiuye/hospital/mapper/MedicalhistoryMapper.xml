@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ujiuye.hospital.dao.MedicalhistoryMapper">
+  <resultMap id="BaseResultMap" type="com.ujiuye.hospital.bean.Medicalhistory">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="patient_id" jdbcType="INTEGER" property="patient_id" />
+    <result column="doctor_id" jdbcType="INTEGER" property="doctor_id" />
+    <result column="dirctions" jdbcType="VARCHAR" property="dirctions" />
+    <result column="directionDetail" jdbcType="VARCHAR" property="directionDetail" />
+    <result column="create_date" jdbcType="DATE" property="create_date" />
+    <result column="updated_date" jdbcType="DATE" property="updated_date" />
+    <result column="updated_man" jdbcType="VARCHAR" property="updated_man" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, patient_id, doctor_id, dirctions, directionDetail, create_date, updated_date, 
+    updated_man
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from medicalhistory
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from medicalhistory
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ujiuye.hospital.bean.Medicalhistory">
+    insert into medicalhistory (id, patient_id, doctor_id, 
+      dirctions, directionDetail, create_date, 
+      updated_date, updated_man)
+    values (#{id,jdbcType=INTEGER}, #{patient_id,jdbcType=INTEGER}, #{doctor_id,jdbcType=INTEGER}, 
+      #{dirctions,jdbcType=VARCHAR}, #{directionDetail,jdbcType=VARCHAR}, #{create_date,jdbcType=DATE}, 
+      #{updated_date,jdbcType=DATE}, #{updated_man,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ujiuye.hospital.bean.Medicalhistory">
+    insert into medicalhistory
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="patient_id != null">
+        patient_id,
+      </if>
+      <if test="doctor_id != null">
+        doctor_id,
+      </if>
+      <if test="dirctions != null">
+        dirctions,
+      </if>
+      <if test="directionDetail != null">
+        directionDetail,
+      </if>
+      <if test="create_date != null">
+        create_date,
+      </if>
+      <if test="updated_date != null">
+        updated_date,
+      </if>
+      <if test="updated_man != null">
+        updated_man,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="patient_id != null">
+        #{patient_id,jdbcType=INTEGER},
+      </if>
+      <if test="doctor_id != null">
+        #{doctor_id,jdbcType=INTEGER},
+      </if>
+      <if test="dirctions != null">
+        #{dirctions,jdbcType=VARCHAR},
+      </if>
+      <if test="directionDetail != null">
+        #{directionDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="create_date != null">
+        #{create_date,jdbcType=DATE},
+      </if>
+      <if test="updated_date != null">
+        #{updated_date,jdbcType=DATE},
+      </if>
+      <if test="updated_man != null">
+        #{updated_man,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ujiuye.hospital.bean.Medicalhistory">
+    update medicalhistory
+    <set>
+      <if test="patient_id != null">
+        patient_id = #{patient_id,jdbcType=INTEGER},
+      </if>
+      <if test="doctor_id != null">
+        doctor_id = #{doctor_id,jdbcType=INTEGER},
+      </if>
+      <if test="dirctions != null">
+        dirctions = #{dirctions,jdbcType=VARCHAR},
+      </if>
+      <if test="directionDetail != null">
+        directionDetail = #{directionDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="create_date != null">
+        create_date = #{create_date,jdbcType=DATE},
+      </if>
+      <if test="updated_date != null">
+        updated_date = #{updated_date,jdbcType=DATE},
+      </if>
+      <if test="updated_man != null">
+        updated_man = #{updated_man,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ujiuye.hospital.bean.Medicalhistory">
+    update medicalhistory
+    set patient_id = #{patient_id,jdbcType=INTEGER},
+      doctor_id = #{doctor_id,jdbcType=INTEGER},
+      dirctions = #{dirctions,jdbcType=VARCHAR},
+      directionDetail = #{directionDetail,jdbcType=VARCHAR},
+      create_date = #{create_date,jdbcType=DATE},
+      updated_date = #{updated_date,jdbcType=DATE},
+      updated_man = #{updated_man,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByPatientId" resultType="Medicalhistory">
+    select * from medicalhistory where patient_id=#{patient_id}
+  </select>
+</mapper>

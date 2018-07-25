@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ujiuye.hospital.dao.BespeakmaxamountMapper">
+  <resultMap id="BaseResultMap" type="com.ujiuye.hospital.bean.Bespeakmaxamount">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="doctor_id" jdbcType="INTEGER" property="doctor_id" />
+    <result column="dept_id" jdbcType="INTEGER" property="dept_id" />
+    <result column="settime" jdbcType="DATE" property="settime" />
+    <result column="bespeak_amount" jdbcType="INTEGER" property="bespeak_amount" />
+    <result column="max_amoun" jdbcType="INTEGER" property="max_amoun" />
+    <result column="start_date" jdbcType="DATE" property="start_date" />
+    <result column="end_date" jdbcType="DATE" property="end_date" />
+    <result column="created_date" jdbcType="DATE" property="created_date" />
+    <result column="updated_date" jdbcType="DATE" property="updated_date" />
+    <result column="updated_man" jdbcType="VARCHAR" property="updated_man" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, doctor_id, dept_id, settime, bespeak_amount, max_amoun, start_date, end_date, 
+    created_date, updated_date, updated_man
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bespeakmaxamount
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from bespeakmaxamount
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ujiuye.hospital.bean.Bespeakmaxamount">
+    insert into bespeakmaxamount (id, doctor_id, dept_id, 
+      settime, bespeak_amount, max_amoun, 
+      start_date, end_date, created_date, 
+      updated_date, updated_man)
+    values (#{id,jdbcType=INTEGER}, #{doctor_id,jdbcType=INTEGER}, #{dept_id,jdbcType=INTEGER}, 
+      #{settime,jdbcType=DATE}, #{bespeak_amount,jdbcType=INTEGER}, #{max_amoun,jdbcType=INTEGER}, 
+      #{start_date,jdbcType=DATE}, #{end_date,jdbcType=DATE}, #{created_date,jdbcType=DATE}, 
+      #{updated_date,jdbcType=DATE}, #{updated_man,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ujiuye.hospital.bean.Bespeakmaxamount">
+    insert into bespeakmaxamount
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="doctor_id != null">
+        doctor_id,
+      </if>
+      <if test="dept_id != null">
+        dept_id,
+      </if>
+      <if test="settime != null">
+        settime,
+      </if>
+      <if test="bespeak_amount != null">
+        bespeak_amount,
+      </if>
+      <if test="max_amoun != null">
+        max_amoun,
+      </if>
+      <if test="start_date != null">
+        start_date,
+      </if>
+      <if test="end_date != null">
+        end_date,
+      </if>
+      <if test="created_date != null">
+        created_date,
+      </if>
+      <if test="updated_date != null">
+        updated_date,
+      </if>
+      <if test="updated_man != null">
+        updated_man,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="doctor_id != null">
+        #{doctor_id,jdbcType=INTEGER},
+      </if>
+      <if test="dept_id != null">
+        #{dept_id,jdbcType=INTEGER},
+      </if>
+      <if test="settime != null">
+        #{settime,jdbcType=DATE},
+      </if>
+      <if test="bespeak_amount != null">
+        #{bespeak_amount,jdbcType=INTEGER},
+      </if>
+      <if test="max_amoun != null">
+        #{max_amoun,jdbcType=INTEGER},
+      </if>
+      <if test="start_date != null">
+        #{start_date,jdbcType=DATE},
+      </if>
+      <if test="end_date != null">
+        #{end_date,jdbcType=DATE},
+      </if>
+      <if test="created_date != null">
+        #{created_date,jdbcType=DATE},
+      </if>
+      <if test="updated_date != null">
+        #{updated_date,jdbcType=DATE},
+      </if>
+      <if test="updated_man != null">
+        #{updated_man,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ujiuye.hospital.bean.Bespeakmaxamount">
+    update bespeakmaxamount
+    <set>
+      <if test="doctor_id != null">
+        doctor_id = #{doctor_id,jdbcType=INTEGER},
+      </if>
+      <if test="dept_id != null">
+        dept_id = #{dept_id,jdbcType=INTEGER},
+      </if>
+      <if test="settime != null">
+        settime = #{settime,jdbcType=DATE},
+      </if>
+      <if test="bespeak_amount != null">
+        bespeak_amount = #{bespeak_amount,jdbcType=INTEGER},
+      </if>
+      <if test="max_amoun != null">
+        max_amoun = #{max_amoun,jdbcType=INTEGER},
+      </if>
+      <if test="start_date != null">
+        start_date = #{start_date,jdbcType=DATE},
+      </if>
+      <if test="end_date != null">
+        end_date = #{end_date,jdbcType=DATE},
+      </if>
+      <if test="created_date != null">
+        created_date = #{created_date,jdbcType=DATE},
+      </if>
+      <if test="updated_date != null">
+        updated_date = #{updated_date,jdbcType=DATE},
+      </if>
+      <if test="updated_man != null">
+        updated_man = #{updated_man,jdbcType=VARCHAR},
+      </if>
+      <if test="work_date != null">
+
+
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ujiuye.hospital.bean.Bespeakmaxamount">
+    update bespeakmaxamount
+    set doctor_id = #{doctor_id,jdbcType=INTEGER},
+      dept_id = #{dept_id,jdbcType=INTEGER},
+      settime = #{settime,jdbcType=DATE},
+      bespeak_amount = #{bespeak_amount,jdbcType=INTEGER},
+      max_amoun = #{max_amoun,jdbcType=INTEGER},
+      start_date = #{start_date,jdbcType=DATE},
+      end_date = #{end_date,jdbcType=DATE},
+      created_date = #{created_date,jdbcType=DATE},
+      updated_date = #{updated_date,jdbcType=DATE},
+      updated_man = #{updated_man,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateMax">
+    update bespeakmaxamount set max_amoun=#{number} where doctor_id=#{doctor_id}
+  </update>
+
+  <select id="selectByDoctorId" resultType="Bespeakmaxamount">
+    select * from bespeakmaxamount where doctor_id=#{doctor_id}
+  </select>
+
+  <update id="addCount">
+    UPDATE bespeakmaxamount SET bespeak_amount=bespeak_amount+1 WHERE max_amoun>bespeak_amount AND doctor_id=#{doctor_id}
+  </update>
+
+  <update id="subtract" parameterType="java.lang.Integer">
+    update bespeakmaxamount set bespeak_amount = bespeak_amount-1 where doctor_id=#{doctor_id};
+  </update>
+
+</mapper>

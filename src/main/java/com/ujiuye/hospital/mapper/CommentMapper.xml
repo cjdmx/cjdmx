@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ujiuye.hospital.dao.CommentMapper">
+  <resultMap id="BaseResultMap" type="com.ujiuye.hospital.bean.Comment">
+    <id column="c_id" jdbcType="INTEGER" property="c_id" />
+    <result column="c_newsid" jdbcType="INTEGER" property="c_newsid" />
+    <result column="c_name" jdbcType="VARCHAR" property="c_name" />
+    <result column="c_date" jdbcType="DATE" property="c_date" />
+    <result column="c_content" jdbcType="VARCHAR" property="c_content" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    c_id, c_newsid, c_name, c_date, c_content
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from comment
+    where c_id = #{c_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from comment
+    where c_id = #{c_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ujiuye.hospital.bean.Comment">
+    insert into comment (c_id, c_newsid, c_name, 
+      c_date, c_content)
+    values (#{c_id,jdbcType=INTEGER}, #{c_newsid,jdbcType=INTEGER}, #{c_name,jdbcType=VARCHAR}, 
+      #{c_date,jdbcType=DATE}, #{c_content,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ujiuye.hospital.bean.Comment">
+    insert into comment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="c_id != null">
+        c_id,
+      </if>
+      <if test="c_newsid != null">
+        c_newsid,
+      </if>
+      <if test="c_name != null">
+        c_name,
+      </if>
+      <if test="c_date != null">
+        c_date,
+      </if>
+      <if test="c_content != null">
+        c_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="c_id != null">
+        #{c_id,jdbcType=INTEGER},
+      </if>
+      <if test="c_newsid != null">
+        #{c_newsid,jdbcType=INTEGER},
+      </if>
+      <if test="c_name != null">
+        #{c_name,jdbcType=VARCHAR},
+      </if>
+      <if test="c_date != null">
+        #{c_date,jdbcType=DATE},
+      </if>
+      <if test="c_content != null">
+        #{c_content,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ujiuye.hospital.bean.Comment">
+    update comment
+    <set>
+      <if test="c_newsid != null">
+        c_newsid = #{c_newsid,jdbcType=INTEGER},
+      </if>
+      <if test="c_name != null">
+        c_name = #{c_name,jdbcType=VARCHAR},
+      </if>
+      <if test="c_date != null">
+        c_date = #{c_date,jdbcType=DATE},
+      </if>
+      <if test="c_content != null">
+        c_content = #{c_content,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where c_id = #{c_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ujiuye.hospital.bean.Comment">
+    update comment
+    set c_newsid = #{c_newsid,jdbcType=INTEGER},
+      c_name = #{c_name,jdbcType=VARCHAR},
+      c_date = #{c_date,jdbcType=DATE},
+      c_content = #{c_content,jdbcType=VARCHAR}
+    where c_id = #{c_id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+    <!--开启注解模式-->
+    <context:annotation-config/>
+
+    <!--扫描注解-->
+    <context:component-scan base-package="com.ujiuye.hospital">
+        <!--排除@Contorller-->
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+    </context:component-scan>
+    <!--导入数据源配置文件-->
+    <context:property-placeholder  location="classpath:pool.properties"/>
+    <!--数据源-->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+          destroy-method="close">
+        <property name="driverClass" value="${jdbc.driverClass}" />
+        <property name="jdbcUrl" value="${jdbc.jdbcUrl}" />
+        <property name="user" value="${jdbc.user}" />
+        <property name="password" value="${jdbc.password}" />
+    </bean>
+
+    <!--整合mybatis-->
+    <bean name="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"></property>
+        <property name="configLocation" value="classpath:sqlMapConfig.xml"></property>
+        <property name="mapperLocations" value="classpath:com/ujiuye/hospital/mapper/*.xml"></property>
+    </bean>
+    <!--扫描mapper.xml和mapper接口,由于分开，所以目前只扫描接口-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.ujiuye.hospital.dao"/>
+    </bean>
+    <!--配置事务-->
+    <bean name="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!--配置通知-->
+    <tx:advice id="myadvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="save*" propagation="REQUIRED" isolation="READ_COMMITTED" read-only="false"/>
+            <tx:method name="insert*" propagation="REQUIRED" isolation="READ_COMMITTED" read-only="false"/>
+            <tx:method name="delete*" propagation="REQUIRED" isolation="READ_COMMITTED" read-only="false"/>
+            <tx:method name="update*" propagation="REQUIRED" isolation="READ_COMMITTED" read-only="false"/>
+            <tx:method name="do*" propagation="REQUIRED" isolation="READ_COMMITTED" read-only="false"/>
+            <tx:method name="load*" propagation="REQUIRED" isolation="READ_COMMITTED" read-only="true"/>
+            <tx:method name="get*" propagation="REQUIRED" isolation="READ_COMMITTED" read-only="true"/>
+            <tx:method name="select*" propagation="REQUIRED" isolation="READ_COMMITTED" read-only="true"/>
+            <tx:method name="search*" propagation="REQUIRED" isolation="READ_COMMITTED" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
+    <!--设置AOP进行事务管理-->
+    <aop:config>
+        <aop:pointcut id="myporint" expression="execution(* com.ujiuye.hospital.service.impl.*.*(..))"/>
+        <aop:advisor advice-ref="myadvice" pointcut-ref="myporint"/>
+    </aop:config>
+
+</beans>

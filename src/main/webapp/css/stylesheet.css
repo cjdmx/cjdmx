@@ -1,0 +1,51 @@
+A:link {text-decoration: none;color:blue}
+A:visited{text-decoration: none;color:blue}
+A:active {text-decoration: none;color:blue}
+A:hover {text-decoration: none; color: red;}
+BODY,TABLE,INPUT {FONT-FAMILY: ËÎÌו,Arial;FONT-SIZE: 9pt;LINE-HEIGHT:1.6} 
+
+.gridheader{background-color:#FFE79D}
+.buttonclass{width:80px}
+.submitclass{width:80px}
+
+body, td {
+	FONT-FAMILY: ËÎÌו, Arial;
+	FONT-SIZE: 9pt;
+	LINE-HEIGHT: 1.6
+}
+
+table {
+	border-color: #428ABD;
+	border-width: 1;
+	border-collapse: collapse;
+}
+
+td {
+	border-color: #428ABD;
+}
+
+.TdColor {
+	background-color: LightSkyBlue;
+}
+
+.MainTdColor {
+	background-color: #ffec9d;
+}
+
+.MainBodyColor {
+	background-color: #efefef;
+}
+
+.SubTdColor {
+	background-color: #ffec9d;
+}
+
+.SubBodyColor {
+	background-color: #efefef;
+}
+
+input {
+	font-family: ËÎÌו;
+	FONT-SIZE: 9pt
+}
+

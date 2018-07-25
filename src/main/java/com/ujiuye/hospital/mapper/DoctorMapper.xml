@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ujiuye.hospital.dao.DoctorMapper">
+  <resultMap id="BaseResultMap" type="com.ujiuye.hospital.bean.Doctor">
+    <id column="doctor_id" jdbcType="INTEGER" property="doctor_id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="role_id" jdbcType="INTEGER" property="role_id" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="age" jdbcType="INTEGER" property="age" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="dept_id" jdbcType="INTEGER" property="dept_id" />
+    <result column="address_province" jdbcType="VARCHAR" property="address_province" />
+    <result column="address_city" jdbcType="VARCHAR" property="address_city" />
+    <result column="positiontitle_id" jdbcType="INTEGER" property="positiontitle_id" />
+    <result column="resume_id" jdbcType="INTEGER" property="resume_id" />
+    <result column="mobile_phone" jdbcType="VARCHAR" property="mobile_phone" />
+    <result column="office_phone" jdbcType="VARCHAR" property="office_phone" />
+    <result column="desc_title" jdbcType="VARCHAR" property="desc_title" />
+    <result column="desc_context" jdbcType="VARCHAR" property="desc_context" />
+    <result column="create_date" jdbcType="DATE" property="create_date" />
+    <result column="update_date" jdbcType="DATE" property="update_date" />
+    <result column="update_man" jdbcType="VARCHAR" property="update_man" />
+  </resultMap>
+  <!--我的增强类-->
+  <resultMap id="myDoctor" type="DoctorVo" extends="BaseResultMap">
+    <association property="role" column="role_id" javaType="Role" select="com.ujiuye.hospital.dao.RoleMapper.getById"/>
+    <association property="deparment" column="dept_id" javaType="Deparment" select="com.ujiuye.hospital.dao.DeparmentMapper.selectByPrimaryKey"/>
+    <association property="positiontitle" column="positiontitle_id" javaType="Positiontitle" select="com.ujiuye.hospital.dao.PositiontitleMapper.selectByPrimaryKey"/>
+    <association property="resume" column="resume_id" javaType="Resume" select="com.ujiuye.hospital.dao.ResumeMapper.selectByPrimaryKey"/>
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    doctor_id, name, role_id, password, age, sex, dept_id, address_province, address_city, 
+    positiontitle_id, resume_id, mobile_phone, office_phone, desc_title, desc_context, 
+    create_date, update_date, update_man
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from doctor
+    where doctor_id = #{doctor_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from doctor
+    where doctor_id = #{doctor_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ujiuye.hospital.bean.Doctor">
+    insert into doctor (doctor_id, name, role_id, 
+      password, age, sex, 
+      dept_id, address_province, address_city, 
+      positiontitle_id, resume_id, mobile_phone, 
+      office_phone, desc_title, desc_context, 
+      create_date, update_date, update_man
+      )
+    values (#{doctor_id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{role_id,jdbcType=INTEGER}, 
+      #{password,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, #{sex,jdbcType=VARCHAR}, 
+      #{dept_id,jdbcType=INTEGER}, #{address_province,jdbcType=VARCHAR}, #{address_city,jdbcType=VARCHAR}, 
+      #{positiontitle_id,jdbcType=INTEGER}, #{resume_id,jdbcType=INTEGER}, #{mobile_phone,jdbcType=VARCHAR}, 
+      #{office_phone,jdbcType=VARCHAR}, #{desc_title,jdbcType=VARCHAR}, #{desc_context,jdbcType=VARCHAR}, 
+      #{create_date,jdbcType=DATE}, #{update_date,jdbcType=DATE}, #{update_man,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ujiuye.hospital.bean.Doctor">
+    insert into doctor
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="doctor_id != null">
+        doctor_id,
+      </if>
+      <if test="name.length">
+        name,
+      </if>
+      <if test="role_id != null">
+        role_id,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="age != null">
+        age,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="dept_id != null">
+        dept_id,
+      </if>
+      <if test="address_province != null">
+        address_province,
+      </if>
+      <if test="address_city != null">
+        address_city,
+      </if>
+      <if test="positiontitle_id != null">
+        positiontitle_id,
+      </if>
+      <if test="resume_id != null">
+        resume_id,
+      </if>
+      <if test="mobile_phone != null">
+        mobile_phone,
+      </if>
+      <if test="office_phone != null">
+        office_phone,
+      </if>
+      <if test="desc_title != null">
+        desc_title,
+      </if>
+      <if test="desc_context != null">
+        desc_context,
+      </if>
+      <if test="create_date != null">
+        create_date,
+      </if>
+      <if test="update_date != null">
+        update_date,
+      </if>
+      <if test="update_man != null">
+        update_man,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="doctor_id != null">
+        #{doctor_id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="role_id != null">
+        #{role_id,jdbcType=INTEGER},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="dept_id != null">
+        #{dept_id,jdbcType=INTEGER},
+      </if>
+      <if test="address_province != null">
+        #{address_province,jdbcType=VARCHAR},
+      </if>
+      <if test="address_city != null">
+        #{address_city,jdbcType=VARCHAR},
+      </if>
+      <if test="positiontitle_id != null">
+        #{positiontitle_id,jdbcType=INTEGER},
+      </if>
+      <if test="resume_id != null">
+        #{resume_id,jdbcType=INTEGER},
+      </if>
+      <if test="mobile_phone != null">
+        #{mobile_phone,jdbcType=VARCHAR},
+      </if>
+      <if test="office_phone != null">
+        #{office_phone,jdbcType=VARCHAR},
+      </if>
+      <if test="desc_title != null">
+        #{desc_title,jdbcType=VARCHAR},
+      </if>
+      <if test="desc_context != null">
+        #{desc_context,jdbcType=VARCHAR},
+      </if>
+      <if test="create_date != null">
+        #{create_date,jdbcType=DATE},
+      </if>
+      <if test="update_date != null">
+        #{update_date,jdbcType=DATE},
+      </if>
+      <if test="update_man != null">
+        #{update_man,jdbcType=VARCHAR},
+      </if>
+    </trim>
+    <selectKey resultType="java.lang.Integer" keyProperty="doctor_id">
+          SELECT  LAST_INSERT_ID();
+    </selectKey>
+
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ujiuye.hospital.bean.Doctor">
+    update doctor
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="role_id != null">
+        role_id = #{role_id,jdbcType=INTEGER},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="dept_id != null">
+        dept_id = #{dept_id,jdbcType=INTEGER},
+      </if>
+      <if test="address_province != null">
+        address_province = #{address_province,jdbcType=VARCHAR},
+      </if>
+      <if test="address_city != null">
+        address_city = #{address_city,jdbcType=VARCHAR},
+      </if>
+      <if test="positiontitle_id != null">
+        positiontitle_id = #{positiontitle_id,jdbcType=INTEGER},
+      </if>
+      <if test="resume_id != null">
+        resume_id = #{resume_id,jdbcType=INTEGER},
+      </if>
+      <if test="mobile_phone != null">
+        mobile_phone = #{mobile_phone,jdbcType=VARCHAR},
+      </if>
+      <if test="office_phone != null">
+        office_phone = #{office_phone,jdbcType=VARCHAR},
+      </if>
+      <if test="desc_title != null">
+        desc_title = #{desc_title,jdbcType=VARCHAR},
+      </if>
+      <if test="desc_context != null">
+        desc_context = #{desc_context,jdbcType=VARCHAR},
+      </if>
+      <if test="create_date != null">
+        create_date = #{create_date,jdbcType=DATE},
+      </if>
+      <if test="update_date != null">
+        update_date = #{update_date,jdbcType=DATE},
+      </if>
+      <if test="update_man != null">
+        update_man = #{update_man,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where doctor_id = #{doctor_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ujiuye.hospital.bean.Doctor">
+    update doctor
+    set name = #{name,jdbcType=VARCHAR},
+      role_id = #{role_id,jdbcType=INTEGER},
+      password = #{password,jdbcType=VARCHAR},
+      age = #{age,jdbcType=INTEGER},
+      sex = #{sex,jdbcType=VARCHAR},
+      dept_id = #{dept_id,jdbcType=INTEGER},
+      address_province = #{address_province,jdbcType=VARCHAR},
+      address_city = #{address_city,jdbcType=VARCHAR},
+      positiontitle_id = #{positiontitle_id,jdbcType=INTEGER},
+      resume_id = #{resume_id,jdbcType=INTEGER},
+      mobile_phone = #{mobile_phone,jdbcType=VARCHAR},
+      office_phone = #{office_phone,jdbcType=VARCHAR},
+      desc_title = #{desc_title,jdbcType=VARCHAR},
+      desc_context = #{desc_context,jdbcType=VARCHAR},
+      create_date = #{create_date,jdbcType=DATE},
+      update_date = #{update_date,jdbcType=DATE},
+      update_man = #{update_man,jdbcType=VARCHAR}
+    where doctor_id = #{doctor_id,jdbcType=INTEGER}
+  </update>
+
+  <select id="getAllDoctor" resultType="Doctor">
+    select * from doctor
+  </select>
+
+  <select id="login" resultType="Doctor" parameterType="string">
+    select * from doctor where name=#{username} and password = #{password}
+  </select>
+
+  <select id="searchDoctor" resultMap="myDoctor" parameterType="DoctorQuery">
+    select d.* from doctor d
+    <if test="start_date!=null or end_date!=null or work_date!=null">
+      ,worktime w
+    </if>
+    <where>
+      <if test="name!=null">
+        d.name = #{name}
+      </if>
+      <if test="minAge!=null">
+        and d.age>=#{minAge} and #{maxAge}>=d.age
+      </if>
+      <if test="sex!=null">
+        and d.sex=#{sex}
+      </if>
+      <if test="dept_id!=null">
+        and d.dept_id=#{dept_id}
+      </if>
+      <if test="resume_id!=null">
+        and d.resume_id=#{resume_id}
+      </if>
+      <if test="positiontitle_id!=null">
+        and d.positiontitle_id=#{positiontitle_id}
+      </if>
+      <if test="start_date!=null and end_date!=nul">
+        and w.start_date>=#{start_date} and #{end_date}>=w.end_date
+      </if>
+      <if test="work_date!=null">
+        and ${work_date}='0';
+      </if>
+    </where>
+  </select>
+
+  <select id="getDoctorByDeptId" resultType="DoctorVo">
+    select * from doctor where dept_id = #{dept_id}
+  </select>
+
+  <select id="getVoById" resultMap="myDoctor">
+    select * from doctor where  doctor_id=#{doctor_id};
+  </select>
+
+
+</mapper>

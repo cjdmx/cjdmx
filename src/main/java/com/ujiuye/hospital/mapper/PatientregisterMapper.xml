@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ujiuye.hospital.dao.PatientregisterMapper">
+  <resultMap id="BaseResultMap" type="com.ujiuye.hospital.bean.Patientregister">
+    <id column="patient_id" jdbcType="INTEGER" property="patient_id" />
+    <result column="patient_name" jdbcType="VARCHAR" property="patient_name" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="role_id" jdbcType="INTEGER" property="role_id" />
+    <result column="identification_no" jdbcType="VARCHAR" property="identification_no" />
+    <result column="age" jdbcType="INTEGER" property="age" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="address_povince" jdbcType="VARCHAR" property="address_povince" />
+    <result column="address_city" jdbcType="VARCHAR" property="address_city" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="create_date" jdbcType="DATE" property="create_date" />
+    <result column="update_date" jdbcType="DATE" property="update_date" />
+    <result column="update_man" jdbcType="VARCHAR" property="update_man" />
+  </resultMap>
+  <resultMap id="myPatient" type="PatientVo" extends="BaseResultMap">
+    <association property="medicalhistory" column="patient_id" javaType="Patientregister" select="com.ujiuye.hospital.dao.MedicalhistoryMapper.selectByPatientId"/>
+    <association property="reply" column="patient_id" javaType="Doctorreplymessage" select="com.ujiuye.hospital.dao.DoctorreplymessageMapper.selectByPatientId"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    patient_id, patient_name, password, role_id, identification_no, age, sex, address_povince, 
+    address_city, phone, create_date, update_date, update_man
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from patientregister
+    where patient_id = #{patient_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from patientregister
+    where patient_id = #{patient_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ujiuye.hospital.bean.Patientregister">
+    insert into patientregister (patient_id, patient_name, password, 
+      role_id, identification_no, age, 
+      sex, address_povince, address_city, 
+      phone, create_date, update_date, 
+      update_man)
+    values (#{patient_id,jdbcType=INTEGER}, #{patient_name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{role_id,jdbcType=INTEGER}, #{identification_no,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, 
+      #{sex,jdbcType=VARCHAR}, #{address_povince,jdbcType=VARCHAR}, #{address_city,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{create_date,jdbcType=DATE}, #{update_date,jdbcType=DATE}, 
+      #{update_man,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ujiuye.hospital.bean.Patientregister">
+    insert into patientregister
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="patient_id != null">
+        patient_id,
+      </if>
+      <if test="patient_name != null">
+        patient_name,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="role_id != null">
+        role_id,
+      </if>
+      <if test="identification_no != null">
+        identification_no,
+      </if>
+      <if test="age != null">
+        age,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="address_povince != null">
+        address_povince,
+      </if>
+      <if test="address_city != null">
+        address_city,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="create_date != null">
+        create_date,
+      </if>
+      <if test="update_date != null">
+        update_date,
+      </if>
+      <if test="update_man != null">
+        update_man,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="patient_id != null">
+        #{patient_id,jdbcType=INTEGER},
+      </if>
+      <if test="patient_name != null">
+        #{patient_name,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="role_id != null">
+        #{role_id,jdbcType=INTEGER},
+      </if>
+      <if test="identification_no != null">
+        #{identification_no,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="address_povince != null">
+        #{address_povince,jdbcType=VARCHAR},
+      </if>
+      <if test="address_city != null">
+        #{address_city,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="create_date != null">
+        #{create_date,jdbcType=DATE},
+      </if>
+      <if test="update_date != null">
+        #{update_date,jdbcType=DATE},
+      </if>
+      <if test="update_man != null">
+        #{update_man,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ujiuye.hospital.bean.Patientregister">
+    update patientregister
+    <set>
+      <if test="patient_name != null">
+        patient_name = #{patient_name,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="role_id != null">
+        role_id = #{role_id,jdbcType=INTEGER},
+      </if>
+      <if test="identification_no != null">
+        identification_no = #{identification_no,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="address_povince != null">
+        address_povince = #{address_povince,jdbcType=VARCHAR},
+      </if>
+      <if test="address_city != null">
+        address_city = #{address_city,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="create_date != null">
+        create_date = #{create_date,jdbcType=DATE},
+      </if>
+      <if test="update_date != null">
+        update_date = #{update_date,jdbcType=DATE},
+      </if>
+      <if test="update_man != null">
+        update_man = #{update_man,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where patient_id = #{patient_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ujiuye.hospital.bean.Patientregister">
+    update patientregister
+    set patient_name = #{patient_name,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      role_id = #{role_id,jdbcType=INTEGER},
+      identification_no = #{identification_no,jdbcType=VARCHAR},
+      age = #{age,jdbcType=INTEGER},
+      sex = #{sex,jdbcType=VARCHAR},
+      address_povince = #{address_povince,jdbcType=VARCHAR},
+      address_city = #{address_city,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      create_date = #{create_date,jdbcType=DATE},
+      update_date = #{update_date,jdbcType=DATE},
+      update_man = #{update_man,jdbcType=VARCHAR}
+    where patient_id = #{patient_id,jdbcType=INTEGER}
+  </update>
+
+  <!--登陆功能-->
+  <select id="login" resultType="Patientregister" parameterType="string">
+    select * from  patientregister where patient_name=#{username} and password = #{password}
+  </select>
+
+  <!--获取所有患者信息-->
+  <select id="getAllPatient" resultType="Patientregister">
+    select * from patientregister
+  </select>
+
+  <!--查询尚未添加病历的病人-->
+  <select id="getAllNoMedical" resultType="Patientregister">
+    SELECT p.* FROM patientregister p LEFT JOIN medicalhistory m ON p.patient_id=m.patient_id WHERE m.patient_id IS NULL
+  </select>
+
+  <!--多条件查询病人-->
+  <select id="search" resultMap="myPatient" parameterType="PatientQuery">
+    SELECT * FROM patientregister p
+    left join medicalhistory m
+    on  p.patient_id = m.patient_id
+    <where>
+      m.patient_id IS not NULL
+      <if test="minAge!=null">
+        and p.age>#{minAge} and #{maxAge}>p.age
+      </if>
+      <if test="patient_name!=null">
+        and p.patient_name=#{patient_name}
+      </if>
+      <if test="sex!=null">
+        and p.sex=#{sex}
+      </if>
+      <if test="medical_date!=null">
+        and m.create_date=#{medical_date}
+      </if>
+      <if test="identification_no!=null">
+        and p.identification_no=#{identification_no}
+      </if>
+    </where>
+  </select>
+
+</mapper>

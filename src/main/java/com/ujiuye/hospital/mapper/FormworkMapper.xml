@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ujiuye.hospital.dao.FormworkMapper">
+  <resultMap id="BaseResultMap" type="com.ujiuye.hospital.bean.Formwork">
+    <id column="formwork_id" jdbcType="INTEGER" property="formwork_id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="template" jdbcType="VARCHAR" property="template" />
+    <result column="dept_id" jdbcType="INTEGER" property="dept_id" />
+    <result column="directions" jdbcType="VARCHAR" property="directions" />
+    <result column="create_date" jdbcType="DATE" property="create_date" />
+    <result column="update_date" jdbcType="DATE" property="update_date" />
+    <result column="update_man" jdbcType="VARCHAR" property="update_man" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    formwork_id, name, type, template, dept_id, directions, create_date, update_date, 
+    update_man
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from formwork
+    where formwork_id = #{formwork_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from formwork
+    where formwork_id = #{formwork_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ujiuye.hospital.bean.Formwork">
+    insert into formwork (formwork_id, name, type, 
+      template, dept_id, directions, 
+      create_date, update_date, update_man
+      )
+    values (#{formwork_id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{template,jdbcType=VARCHAR}, #{dept_id,jdbcType=INTEGER}, #{directions,jdbcType=VARCHAR}, 
+      #{create_date,jdbcType=DATE}, #{update_date,jdbcType=DATE}, #{update_man,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ujiuye.hospital.bean.Formwork">
+    insert into formwork
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="formwork_id != null">
+        formwork_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="template != null">
+        template,
+      </if>
+      <if test="dept_id != null">
+        dept_id,
+      </if>
+      <if test="directions != null">
+        directions,
+      </if>
+      <if test="create_date != null">
+        create_date,
+      </if>
+      <if test="update_date != null">
+        update_date,
+      </if>
+      <if test="update_man != null">
+        update_man,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="formwork_id != null">
+        #{formwork_id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="template != null">
+        #{template,jdbcType=VARCHAR},
+      </if>
+      <if test="dept_id != null">
+        #{dept_id,jdbcType=INTEGER},
+      </if>
+      <if test="directions != null">
+        #{directions,jdbcType=VARCHAR},
+      </if>
+      <if test="create_date != null">
+        #{create_date,jdbcType=DATE},
+      </if>
+      <if test="update_date != null">
+        #{update_date,jdbcType=DATE},
+      </if>
+      <if test="update_man != null">
+        #{update_man,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ujiuye.hospital.bean.Formwork">
+    update formwork
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="template != null">
+        template = #{template,jdbcType=VARCHAR},
+      </if>
+      <if test="dept_id != null">
+        dept_id = #{dept_id,jdbcType=INTEGER},
+      </if>
+      <if test="directions != null">
+        directions = #{directions,jdbcType=VARCHAR},
+      </if>
+      <if test="create_date != null">
+        create_date = #{create_date,jdbcType=DATE},
+      </if>
+      <if test="update_date != null">
+        update_date = #{update_date,jdbcType=DATE},
+      </if>
+      <if test="update_man != null">
+        update_man = #{update_man,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where formwork_id = #{formwork_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ujiuye.hospital.bean.Formwork">
+    update formwork
+    set name = #{name,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      template = #{template,jdbcType=VARCHAR},
+      dept_id = #{dept_id,jdbcType=INTEGER},
+      directions = #{directions,jdbcType=VARCHAR},
+      create_date = #{create_date,jdbcType=DATE},
+      update_date = #{update_date,jdbcType=DATE},
+      update_man = #{update_man,jdbcType=VARCHAR}
+    where formwork_id = #{formwork_id,jdbcType=INTEGER}
+  </update>
+
+  <select id="searchFormWork" resultType="Formwork" parameterType="Formwork">
+    select * from formwork
+    <where>
+      <if test="type!=null">
+        type = #{type}
+      </if>
+      <if test="dept_id!=null">
+        and dept_id=#{dept_id}
+      </if>
+    </where>
+  </select>
+
+</mapper>

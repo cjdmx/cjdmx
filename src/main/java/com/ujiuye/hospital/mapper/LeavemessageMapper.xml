@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ujiuye.hospital.dao.LeavemessageMapper">
+  <resultMap id="BaseResultMap" type="com.ujiuye.hospital.bean.Leavemessage">
+    <id column="leave_id" jdbcType="INTEGER" property="leave_id" />
+    <result column="patient_id" jdbcType="INTEGER" property="patient_id" />
+    <result column="doctor_id" jdbcType="INTEGER" property="doctor_id" />
+    <result column="message_title" jdbcType="VARCHAR" property="message_title" />
+    <result column="message_content" jdbcType="VARCHAR" property="message_content" />
+    <result column="isreading" jdbcType="INTEGER" property="isreading" />
+    <result column="created_date" jdbcType="DATE" property="created_date" />
+    <result column="updated_date" jdbcType="DATE" property="updated_date" />
+    <result column="updated_man" jdbcType="VARCHAR" property="updated_man" />
+  </resultMap>
+  <resultMap id="mylm" type="LeavemessageVo" extends="BaseResultMap">
+    <association property="patient" column="patient_id" javaType="Patientregister" select="com.ujiuye.hospital.dao.PatientregisterMapper.selectByPrimaryKey"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    leave_id, patient_id, doctor_id, message_title, message_content, isreading, created_date, 
+    updated_date, updated_man
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from leavemessage
+    where leave_id = #{leave_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from leavemessage
+    where leave_id = #{leave_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ujiuye.hospital.bean.Leavemessage">
+    insert into leavemessage (leave_id, patient_id, doctor_id, 
+      message_title, message_content, isreading, 
+      created_date, updated_date, updated_man
+      )
+    values (#{leave_id,jdbcType=INTEGER}, #{patient_id,jdbcType=INTEGER}, #{doctor_id,jdbcType=INTEGER}, 
+      #{message_title,jdbcType=VARCHAR}, #{message_content,jdbcType=VARCHAR}, #{isreading,jdbcType=INTEGER}, 
+      #{created_date,jdbcType=DATE}, #{updated_date,jdbcType=DATE}, #{updated_man,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ujiuye.hospital.bean.Leavemessage">
+    insert into leavemessage
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="leave_id != null">
+        leave_id,
+      </if>
+      <if test="patient_id != null">
+        patient_id,
+      </if>
+      <if test="doctor_id != null">
+        doctor_id,
+      </if>
+      <if test="message_title != null">
+        message_title,
+      </if>
+      <if test="message_content != null">
+        message_content,
+      </if>
+      <if test="isreading != null">
+        isreading,
+      </if>
+      <if test="created_date != null">
+        created_date,
+      </if>
+      <if test="updated_date != null">
+        updated_date,
+      </if>
+      <if test="updated_man != null">
+        updated_man,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="leave_id != null">
+        #{leave_id,jdbcType=INTEGER},
+      </if>
+      <if test="patient_id != null">
+        #{patient_id,jdbcType=INTEGER},
+      </if>
+      <if test="doctor_id != null">
+        #{doctor_id,jdbcType=INTEGER},
+      </if>
+      <if test="message_title != null">
+        #{message_title,jdbcType=VARCHAR},
+      </if>
+      <if test="message_content != null">
+        #{message_content,jdbcType=VARCHAR},
+      </if>
+      <if test="isreading != null">
+        #{isreading,jdbcType=INTEGER},
+      </if>
+      <if test="created_date != null">
+        #{created_date,jdbcType=DATE},
+      </if>
+      <if test="updated_date != null">
+        #{updated_date,jdbcType=DATE},
+      </if>
+      <if test="updated_man != null">
+        #{updated_man,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ujiuye.hospital.bean.Leavemessage">
+    update leavemessage
+    <set>
+      <if test="patient_id != null">
+        patient_id = #{patient_id,jdbcType=INTEGER},
+      </if>
+      <if test="doctor_id != null">
+        doctor_id = #{doctor_id,jdbcType=INTEGER},
+      </if>
+      <if test="message_title != null">
+        message_title = #{message_title,jdbcType=VARCHAR},
+      </if>
+      <if test="message_content != null">
+        message_content = #{message_content,jdbcType=VARCHAR},
+      </if>
+      <if test="isreading != null">
+        isreading = #{isreading,jdbcType=INTEGER},
+      </if>
+      <if test="created_date != null">
+        created_date = #{created_date,jdbcType=DATE},
+      </if>
+      <if test="updated_date != null">
+        updated_date = #{updated_date,jdbcType=DATE},
+      </if>
+      <if test="updated_man != null">
+        updated_man = #{updated_man,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where leave_id = #{leave_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ujiuye.hospital.bean.Leavemessage">
+    update leavemessage
+    set patient_id = #{patient_id,jdbcType=INTEGER},
+      doctor_id = #{doctor_id,jdbcType=INTEGER},
+      message_title = #{message_title,jdbcType=VARCHAR},
+      message_content = #{message_content,jdbcType=VARCHAR},
+      isreading = #{isreading,jdbcType=INTEGER},
+      created_date = #{created_date,jdbcType=DATE},
+      updated_date = #{updated_date,jdbcType=DATE},
+      updated_man = #{updated_man,jdbcType=VARCHAR}
+    where leave_id = #{leave_id,jdbcType=INTEGER}
+  </update>
+
+  <select id="searchLeavemsg" parameterType="DoctorQuery" resultMap="mylm">
+    select l.* from  leavemessage l,patientregister p
+    <where>
+      doctor_id=#{doctor_id} and l.patient_id=p.patient_id
+      <if test="patient_name!=null">
+        and p.patient_name=#{patient_name}
+      </if>
+      <if test="maxAge!=null">
+        and p.age>=#{minAge} and #{maxAge}>p.age
+      </if>
+      <if test="sex!=null">
+        and p.sex=#{sex}
+      </if>
+    </where>
+  </select>
+
+</mapper>

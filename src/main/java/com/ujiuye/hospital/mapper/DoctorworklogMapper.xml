@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ujiuye.hospital.dao.DoctorworklogMapper">
+  <resultMap id="BaseResultMap" type="com.ujiuye.hospital.bean.Doctorworklog">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="doctor_id" jdbcType="INTEGER" property="doctor_id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="time" jdbcType="DATE" property="time" />
+    <result column="summarization" jdbcType="VARCHAR" property="summarization" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="accessorytitle" jdbcType="VARCHAR" property="accessorytitle" />
+    <result column="accessoriness" jdbcType="VARCHAR" property="accessoriness" />
+    <result column="create_date" jdbcType="DATE" property="create_date" />
+    <result column="update_date" jdbcType="DATE" property="update_date" />
+    <result column="update_man" jdbcType="VARCHAR" property="update_man" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, doctor_id, name, time, summarization, remark, accessorytitle, accessoriness, 
+    create_date, update_date, update_man
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from doctorworklog
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from doctorworklog
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ujiuye.hospital.bean.Doctorworklog">
+    insert into doctorworklog (id, doctor_id, name, 
+      time, summarization, remark, 
+      accessorytitle, accessoriness, create_date, 
+      update_date, update_man)
+    values (#{id,jdbcType=INTEGER}, #{doctor_id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{time,jdbcType=DATE}, #{summarization,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{accessorytitle,jdbcType=VARCHAR}, #{accessoriness,jdbcType=VARCHAR}, #{create_date,jdbcType=DATE}, 
+      #{update_date,jdbcType=DATE}, #{update_man,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ujiuye.hospital.bean.Doctorworklog">
+    insert into doctorworklog
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="doctor_id != null">
+        doctor_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="time != null">
+        time,
+      </if>
+      <if test="summarization != null">
+        summarization,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="accessorytitle != null">
+        accessorytitle,
+      </if>
+      <if test="accessoriness != null">
+        accessoriness,
+      </if>
+      <if test="create_date != null">
+        create_date,
+      </if>
+      <if test="update_date != null">
+        update_date,
+      </if>
+      <if test="update_man != null">
+        update_man,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="doctor_id != null">
+        #{doctor_id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=DATE},
+      </if>
+      <if test="summarization != null">
+        #{summarization,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="accessorytitle != null">
+        #{accessorytitle,jdbcType=VARCHAR},
+      </if>
+      <if test="accessoriness != null">
+        #{accessoriness,jdbcType=VARCHAR},
+      </if>
+      <if test="create_date != null">
+        #{create_date,jdbcType=DATE},
+      </if>
+      <if test="update_date != null">
+        #{update_date,jdbcType=DATE},
+      </if>
+      <if test="update_man != null">
+        #{update_man,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ujiuye.hospital.bean.Doctorworklog">
+    update doctorworklog
+    <set>
+      <if test="doctor_id != null">
+        doctor_id = #{doctor_id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        time = #{time,jdbcType=DATE},
+      </if>
+      <if test="summarization != null">
+        summarization = #{summarization,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="accessorytitle != null">
+        accessorytitle = #{accessorytitle,jdbcType=VARCHAR},
+      </if>
+      <if test="accessoriness != null">
+        accessoriness = #{accessoriness,jdbcType=VARCHAR},
+      </if>
+      <if test="create_date != null">
+        create_date = #{create_date,jdbcType=DATE},
+      </if>
+      <if test="update_date != null">
+        update_date = #{update_date,jdbcType=DATE},
+      </if>
+      <if test="update_man != null">
+        update_man = #{update_man,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ujiuye.hospital.bean.Doctorworklog">
+    update doctorworklog
+    set doctor_id = #{doctor_id,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      time = #{time,jdbcType=DATE},
+      summarization = #{summarization,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      accessorytitle = #{accessorytitle,jdbcType=VARCHAR},
+      accessoriness = #{accessoriness,jdbcType=VARCHAR},
+      create_date = #{create_date,jdbcType=DATE},
+      update_date = #{update_date,jdbcType=DATE},
+      update_man = #{update_man,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="searchWorklog" parameterType="Doctorworklog" resultType="Doctorworklog">
+    select * from doctorworklog
+    <where>
+      <if test="name!=null">
+        name like '%${name}%'
+      </if>
+      <if test="time!=null">
+        and time=#{time}
+      </if>
+    </where>
+  </select>
+
+</mapper>

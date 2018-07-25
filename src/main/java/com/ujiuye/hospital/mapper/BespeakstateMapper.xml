@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ujiuye.hospital.dao.BespeakstateMapper">
+  <resultMap id="BaseResultMap" type="com.ujiuye.hospital.bean.Bespeakstate">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="doctor_id" jdbcType="INTEGER" property="doctor_id" />
+    <result column="monday_state" jdbcType="INTEGER" property="monday_state" />
+    <result column="tuesday_state" jdbcType="INTEGER" property="tuesday_state" />
+    <result column="wednesday_state" jdbcType="INTEGER" property="wednesday_state" />
+    <result column="thursday_state" jdbcType="INTEGER" property="thursday_state" />
+    <result column="friday_state" jdbcType="INTEGER" property="friday_state" />
+    <result column="saturday_state" jdbcType="INTEGER" property="saturday_state" />
+    <result column="sunday_state" jdbcType="INTEGER" property="sunday_state" />
+    <result column="start_date" jdbcType="DATE" property="start_date" />
+    <result column="end_date" jdbcType="DATE" property="end_date" />
+    <result column="created_date" jdbcType="DATE" property="created_date" />
+    <result column="updated_date" jdbcType="DATE" property="updated_date" />
+    <result column="updated_man" jdbcType="VARCHAR" property="updated_man" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, doctor_id, monday_state, tuesday_state, wednesday_state, thursday_state, friday_state, 
+    saturday_state, sunday_state, start_date, end_date, created_date, updated_date, updated_man
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bespeakstate
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from bespeakstate
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ujiuye.hospital.bean.Bespeakstate">
+    insert into bespeakstate (id, doctor_id, monday_state, 
+      tuesday_state, wednesday_state, thursday_state, 
+      friday_state, saturday_state, sunday_state, 
+      start_date, end_date, created_date, 
+      updated_date, updated_man)
+    values (#{id,jdbcType=INTEGER}, #{doctor_id,jdbcType=INTEGER}, #{monday_state,jdbcType=INTEGER}, 
+      #{tuesday_state,jdbcType=INTEGER}, #{wednesday_state,jdbcType=INTEGER}, #{thursday_state,jdbcType=INTEGER}, 
+      #{friday_state,jdbcType=INTEGER}, #{saturday_state,jdbcType=INTEGER}, #{sunday_state,jdbcType=INTEGER}, 
+      #{start_date,jdbcType=DATE}, #{end_date,jdbcType=DATE}, #{created_date,jdbcType=DATE}, 
+      #{updated_date,jdbcType=DATE}, #{updated_man,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ujiuye.hospital.bean.Bespeakstate">
+    insert into bespeakstate
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="doctor_id != null">
+        doctor_id,
+      </if>
+      <if test="monday_state != null">
+        monday_state,
+      </if>
+      <if test="tuesday_state != null">
+        tuesday_state,
+      </if>
+      <if test="wednesday_state != null">
+        wednesday_state,
+      </if>
+      <if test="thursday_state != null">
+        thursday_state,
+      </if>
+      <if test="friday_state != null">
+        friday_state,
+      </if>
+      <if test="saturday_state != null">
+        saturday_state,
+      </if>
+      <if test="sunday_state != null">
+        sunday_state,
+      </if>
+      <if test="start_date != null">
+        start_date,
+      </if>
+      <if test="end_date != null">
+        end_date,
+      </if>
+      <if test="created_date != null">
+        created_date,
+      </if>
+      <if test="updated_date != null">
+        updated_date,
+      </if>
+      <if test="updated_man != null">
+        updated_man,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="doctor_id != null">
+        #{doctor_id,jdbcType=INTEGER},
+      </if>
+      <if test="monday_state != null">
+        #{monday_state,jdbcType=INTEGER},
+      </if>
+      <if test="tuesday_state != null">
+        #{tuesday_state,jdbcType=INTEGER},
+      </if>
+      <if test="wednesday_state != null">
+        #{wednesday_state,jdbcType=INTEGER},
+      </if>
+      <if test="thursday_state != null">
+        #{thursday_state,jdbcType=INTEGER},
+      </if>
+      <if test="friday_state != null">
+        #{friday_state,jdbcType=INTEGER},
+      </if>
+      <if test="saturday_state != null">
+        #{saturday_state,jdbcType=INTEGER},
+      </if>
+      <if test="sunday_state != null">
+        #{sunday_state,jdbcType=INTEGER},
+      </if>
+      <if test="start_date != null">
+        #{start_date,jdbcType=DATE},
+      </if>
+      <if test="end_date != null">
+        #{end_date,jdbcType=DATE},
+      </if>
+      <if test="created_date != null">
+        #{created_date,jdbcType=DATE},
+      </if>
+      <if test="updated_date != null">
+        #{updated_date,jdbcType=DATE},
+      </if>
+      <if test="updated_man != null">
+        #{updated_man,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ujiuye.hospital.bean.Bespeakstate">
+    update bespeakstate
+    <set>
+      <if test="doctor_id != null">
+        doctor_id = #{doctor_id,jdbcType=INTEGER},
+      </if>
+      <if test="monday_state != null">
+        monday_state = #{monday_state,jdbcType=INTEGER},
+      </if>
+      <if test="tuesday_state != null">
+        tuesday_state = #{tuesday_state,jdbcType=INTEGER},
+      </if>
+      <if test="wednesday_state != null">
+        wednesday_state = #{wednesday_state,jdbcType=INTEGER},
+      </if>
+      <if test="thursday_state != null">
+        thursday_state = #{thursday_state,jdbcType=INTEGER},
+      </if>
+      <if test="friday_state != null">
+        friday_state = #{friday_state,jdbcType=INTEGER},
+      </if>
+      <if test="saturday_state != null">
+        saturday_state = #{saturday_state,jdbcType=INTEGER},
+      </if>
+      <if test="sunday_state != null">
+        sunday_state = #{sunday_state,jdbcType=INTEGER},
+      </if>
+      <if test="start_date != null">
+        start_date = #{start_date,jdbcType=DATE},
+      </if>
+      <if test="end_date != null">
+        end_date = #{end_date,jdbcType=DATE},
+      </if>
+      <if test="created_date != null">
+        created_date = #{created_date,jdbcType=DATE},
+      </if>
+      <if test="updated_date != null">
+        updated_date = #{updated_date,jdbcType=DATE},
+      </if>
+      <if test="updated_man != null">
+        updated_man = #{updated_man,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ujiuye.hospital.bean.Bespeakstate">
+    update bespeakstate
+    set doctor_id = #{doctor_id,jdbcType=INTEGER},
+      monday_state = #{monday_state,jdbcType=INTEGER},
+      tuesday_state = #{tuesday_state,jdbcType=INTEGER},
+      wednesday_state = #{wednesday_state,jdbcType=INTEGER},
+      thursday_state = #{thursday_state,jdbcType=INTEGER},
+      friday_state = #{friday_state,jdbcType=INTEGER},
+      saturday_state = #{saturday_state,jdbcType=INTEGER},
+      sunday_state = #{sunday_state,jdbcType=INTEGER},
+      start_date = #{start_date,jdbcType=DATE},
+      end_date = #{end_date,jdbcType=DATE},
+      created_date = #{created_date,jdbcType=DATE},
+      updated_date = #{updated_date,jdbcType=DATE},
+      updated_man = #{updated_man,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByDoctorId" resultType="Bespeakstate">
+    select * from bespeakstate where doctor_id=#{doctor_id}
+  </select>
+
+  <update id="subtract" >
+    update bespeakstate set ${bespeak_date}=${bespeak_date}-1 where doctor_id=#{doctor_id}
+  </update>
+
+</mapper>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ujiuye.hospital.dao.BespeaklogMapper">
+  <resultMap id="BaseResultMap" type="com.ujiuye.hospital.bean.Bespeaklog">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="patient_id" jdbcType="INTEGER" property="patient_id" />
+    <result column="doctor_id" jdbcType="INTEGER" property="doctor_id" />
+    <result column="created_date" jdbcType="DATE" property="created_date" />
+    <result column="updated_date" jdbcType="DATE" property="updated_date" />
+    <result column="updated_man" jdbcType="VARCHAR" property="updated_man" />
+    <result column="bespeak_date" jdbcType="VARCHAR" property="bespeak_date" />
+  </resultMap>
+  <resultMap id="myLog" type="LogVo" extends="BaseResultMap">
+    <association property="doctor" javaType="Doctor" column="doctor_id" select="com.ujiuye.hospital.dao.DoctorMapper.selectByPrimaryKey"/>
+    <association property="patient" javaType="Patientregister" column="patient_id" select="com.ujiuye.hospital.dao.PatientregisterMapper.selectByPrimaryKey"/>
+    <association property="dept" javaType="Deparment" column="doctor_id" select="com.ujiuye.hospital.dao.DeparmentMapper.getByDoctorId"/>
+    <association property="worktime" javaType="Worktime" column="doctor_id" select="com.ujiuye.hospital.dao.WorktimeMapper.getByDoctorId"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, patient_id, doctor_id, created_date, updated_date, updated_man
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bespeaklog
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from bespeaklog
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ujiuye.hospital.bean.Bespeaklog">
+    insert into bespeaklog (id, patient_id, doctor_id, 
+      created_date, updated_date, updated_man
+      )
+    values (#{id,jdbcType=INTEGER}, #{patient_id,jdbcType=INTEGER}, #{doctor_id,jdbcType=INTEGER}, 
+      #{created_date,jdbcType=DATE}, #{updated_date,jdbcType=DATE}, #{updated_man,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ujiuye.hospital.bean.Bespeaklog">
+    insert into bespeaklog
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="patient_id != null">
+        patient_id,
+      </if>
+      <if test="doctor_id != null">
+        doctor_id,
+      </if>
+      <if test="created_date != null">
+        created_date,
+      </if>
+      <if test="updated_date != null">
+        updated_date,
+      </if>
+      <if test="updated_man != null">
+        updated_man,
+      </if>
+      <if test="bespeak_date != null">
+        bespeak_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="patient_id != null">
+        #{patient_id,jdbcType=INTEGER},
+      </if>
+      <if test="doctor_id != null">
+        #{doctor_id,jdbcType=INTEGER},
+      </if>
+      <if test="created_date != null">
+        #{created_date,jdbcType=DATE},
+      </if>
+      <if test="updated_date != null">
+        #{updated_date,jdbcType=DATE},
+      </if>
+      <if test="updated_man != null">
+        #{updated_man,jdbcType=VARCHAR},
+      </if>
+      <if test="bespeak_date != null">
+        #{bespeak_date,jdbcType=VARCHAR}
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ujiuye.hospital.bean.Bespeaklog">
+    update bespeaklog
+    <set>
+      <if test="patient_id != null">
+        patient_id = #{patient_id,jdbcType=INTEGER},
+      </if>
+      <if test="doctor_id != null">
+        doctor_id = #{doctor_id,jdbcType=INTEGER},
+      </if>
+      <if test="created_date != null">
+        created_date = #{created_date,jdbcType=DATE},
+      </if>
+      <if test="updated_date != null">
+        updated_date = #{updated_date,jdbcType=DATE},
+      </if>
+      <if test="updated_man != null">
+        updated_man = #{updated_man,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ujiuye.hospital.bean.Bespeaklog">
+    update bespeaklog
+    set patient_id = #{patient_id,jdbcType=INTEGER},
+      doctor_id = #{doctor_id,jdbcType=INTEGER},
+      created_date = #{created_date,jdbcType=DATE},
+      updated_date = #{updated_date,jdbcType=DATE},
+      updated_man = #{updated_man,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="checkRepeat" parameterType="Bespeaklog" resultType="int">
+    select count(*) from bespeaklog where patient_id= #{patient_id} and doctor_id = #{doctor_id}
+  </select>
+
+  <select id="getLogByPatientId" resultMap="myLog">
+    SELECT l.* FROM patientregister p,doctor d,bespeaklog l WHERE p.patient_id=l.patient_id AND d.doctor_id=l.doctor_id AND p.patient_id= #{patient_id}
+  </select>
+
+  <delete id="delete" parameterType="Bespeaklog">
+    delete from bespeaklog where doctor_id=#{doctor_id} and patient_id=#{patient_id}
+  </delete>
+
+</mapper>

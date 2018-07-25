@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ujiuye.hospital.dao.DoctorreplymessageMapper">
+  <resultMap id="BaseResultMap" type="com.ujiuye.hospital.bean.Doctorreplymessage">
+    <id column="drm_id" jdbcType="INTEGER" property="drm_id" />
+    <result column="patient_id" jdbcType="INTEGER" property="patient_id" />
+    <result column="doctor_id" jdbcType="INTEGER" property="doctor_id" />
+    <result column="messagetitle" jdbcType="VARCHAR" property="messagetitle" />
+    <result column="messagecontent" jdbcType="VARCHAR" property="messagecontent" />
+    <result column="isreading" jdbcType="CHAR" property="isreading" />
+    <result column="created_date" jdbcType="DATE" property="created_date" />
+    <result column="updated_date" jdbcType="DATE" property="updated_date" />
+    <result column="updated_man" jdbcType="VARCHAR" property="updated_man" />
+  </resultMap>
+  <resultMap id="myReply" type="ReplyVo" extends="BaseResultMap">
+    <association property="doctor" javaType="Doctor" column="doctor_id" select="com.ujiuye.hospital.dao.DoctorMapper.selectByPrimaryKey"/>
+    <association property="patient" javaType="Patientregister" column="patient_id" select="com.ujiuye.hospital.dao.PatientregisterMapper.selectByPrimaryKey"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    drm_id, patient_id, messagetitle, messagecontent, isreading, created_date, updated_date, 
+    updated_man
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from doctorreplymessage
+    where drm_id = #{drm_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from doctorreplymessage
+    where drm_id = #{drm_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ujiuye.hospital.bean.Doctorreplymessage">
+    insert into doctorreplymessage (drm_id, patient_id, messagetitle, 
+      messagecontent, isreading, created_date, 
+      updated_date, updated_man)
+    values (#{drm_id,jdbcType=INTEGER}, #{patient_id,jdbcType=INTEGER}, #{messagetitle,jdbcType=VARCHAR}, 
+      #{messagecontent,jdbcType=VARCHAR}, #{isreading,jdbcType=CHAR}, #{created_date,jdbcType=DATE}, 
+      #{updated_date,jdbcType=DATE}, #{updated_man,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ujiuye.hospital.bean.Doctorreplymessage">
+    insert into doctorreplymessage
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="drm_id != null">
+        drm_id,
+      </if>
+      <if test="patient_id != null">
+        patient_id,
+      </if>
+      <if test="doctor_id != null">
+        doctor_id,
+      </if>
+      <if test="messagetitle != null">
+        messagetitle,
+      </if>
+      <if test="messagecontent != null">
+        messagecontent,
+      </if>
+      <if test="isreading != null">
+        isreading,
+      </if>
+      <if test="created_date != null">
+        created_date,
+      </if>
+      <if test="updated_date != null">
+        updated_date,
+      </if>
+      <if test="updated_man != null">
+        updated_man,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="drm_id != null">
+        #{drm_id,jdbcType=INTEGER},
+      </if>
+      <if test="patient_id != null">
+        #{patient_id,jdbcType=INTEGER},
+      </if>
+      <if test="doctor_id != null">
+        #{doctor_id,jdbcType=INTEGER}
+      </if>
+      <if test="messagetitle != null">
+        #{messagetitle,jdbcType=VARCHAR},
+      </if>
+      <if test="messagecontent != null">
+        #{messagecontent,jdbcType=VARCHAR},
+      </if>
+      <if test="isreading != null">
+        #{isreading,jdbcType=CHAR},
+      </if>
+      <if test="created_date != null">
+        #{created_date,jdbcType=DATE},
+      </if>
+      <if test="updated_date != null">
+        #{updated_date,jdbcType=DATE},
+      </if>
+      <if test="updated_man != null">
+        #{updated_man,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ujiuye.hospital.bean.Doctorreplymessage">
+    update doctorreplymessage
+    <set>
+      <if test="patient_id != null">
+        patient_id = #{patient_id,jdbcType=INTEGER},
+      </if>
+      <if test="messagetitle != null">
+        messagetitle = #{messagetitle,jdbcType=VARCHAR},
+      </if>
+      <if test="messagecontent != null">
+        messagecontent = #{messagecontent,jdbcType=VARCHAR},
+      </if>
+      <if test="isreading != null">
+        isreading = #{isreading,jdbcType=CHAR},
+      </if>
+      <if test="created_date != null">
+        created_date = #{created_date,jdbcType=DATE},
+      </if>
+      <if test="updated_date != null">
+        updated_date = #{updated_date,jdbcType=DATE},
+      </if>
+      <if test="updated_man != null">
+        updated_man = #{updated_man,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where drm_id = #{drm_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ujiuye.hospital.bean.Doctorreplymessage">
+    update doctorreplymessage
+    set patient_id = #{patient_id,jdbcType=INTEGER},
+      messagetitle = #{messagetitle,jdbcType=VARCHAR},
+      messagecontent = #{messagecontent,jdbcType=VARCHAR},
+      isreading = #{isreading,jdbcType=CHAR},
+      created_date = #{created_date,jdbcType=DATE},
+      updated_date = #{updated_date,jdbcType=DATE},
+      updated_man = #{updated_man,jdbcType=VARCHAR}
+    where drm_id = #{drm_id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByPatientId" resultType="com.ujiuye.hospital.bean.Doctorreplymessage">
+    select * from doctorreplymessage where patient_id=#{patient_id}
+  </select>
+
+  <select id="getByPatientId" resultMap="myReply">
+    select * from doctorreplymessage where patient_id=#{patient_id}
+  </select>
+
+</mapper>
